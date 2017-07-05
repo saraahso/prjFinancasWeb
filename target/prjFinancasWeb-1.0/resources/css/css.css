@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
+
+body{font-family: 'Roboto', sans-serif;}
+
+h1, h2, h3{color:#777; font-weight:400;}
+
+.sidebar{ background:#f8f8f8; margin-top:-20px; padding:5px;min-height: calc(100vh - 50px);}
+
+.menuTit{font-size: 16px !important; padding-left: 0 !important; background:#FFF; width:96% !important;}
+
+.subMenuTit{padding-left: 40px !important;color: #226180;}
+
+.row{ padding:15px;}
+
+.ui-button-text-icon-left .ui-button-text{padding: 2px !important;}
+
+.ui-menu{width:110% !important; padding:0px; margin-left:-12px;}
+
+tr, td, .ui-state-default{ border: solid 1px #eee !important; text-align:center;}
+
+.ui-state-default{background: #f8f8f8}
+
+.btn-primary{background: #31708f;}
+
+.colunaNome{text-align:left;}
+            
+.formularios{background: #FFF; text-align:left;}
+
+.input-group-btn:last-child>.btn, .input-group-btn:last-child>.btn-group{margin-top:25px !important;}

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:composition template="../index.xhtml">
+
+        <f:metadata>
+            <f:viewAction action="#{operacaoBean.iniciarFormulario(param.viewState)}"/>
+        </f:metadata>
+
+        <ui:define name="conteudo">
+            <div class="col-lg-10 col-md-10 col-xs-10">
+                <h:form id="formOperacaoRemetente" enctype="multipart/form-data">
+                    <p:fieldset legend="#{operacaoBean.viewState}" style="margin-bottom:20px;">
+                        <div class="row">
+                            <div class="col-lg-2 col-md-2 col-xs-2">
+                                <h:outputLabel for="clienteRemetente" value="Cliente Remetente:" />
+                            </div>
+                            <div class="col-lg-10 col-md-10 col-xs-10 form-group">
+                                <h:selectOneMenu id="exampleSelect1" 
+                                                 class="form-control"
+                                                 value="#{operacaoBean.operacao.clienteRemetente}"
+                                                 converter="omnifaces.SelectItemsConverter" >
+                                    <p:ajax event="change" 
+                                            process="@this"
+                                            update="formOperacaoRemetente"
+                                            listener="#{operacaoBean.listaOpContaClienteRemetente()}" />
+                                    <f:selectItem itemValue="#{null}"
+                                                  itemLabel="Selecione" 
+                                                  noSelectionOption="true" />
+                                    <f:selectItems var="clienteRemetente"
+                                                   itemValue="#{clientes}"
+                                                   itemLabel="#{clienteRemetente.nome}"
+                                                   value="#{operacaoBean.clientes}"/>
+                                </h:selectOneMenu>
+                            </div><div class="col-lg-2 col-md-2 col-xs-2">
+                                <p:outputLabel for="contaRemetente" value="Sua Conta: " />
+                            </div>
+                            <div class="col-lg-10 col-md-10 col-xs-10 form-group">
+                                <h:selectOneMenu id="contaRemetente"
+                                                 value="#{operacaoBean.operacao.contaBancariaRemetente}"
+                                                 converter="omnifaces.SelectItemsConverter"
+                                                 class="form-control">
+                                    <f:selectItem itemLabel="Selecione"
+                                                  itemValue="#{null}" 
+                                                  noSelectionOption="true" />
+                                    <f:selectItems var="contasRemetente"
+                                                   value="#{operacaoBean.contasRemetente}"
+                                                   itemValue="#{contasRemetente}"
+                                                   itemLabel="#{contasRemetente.numeroConta}"/>
+                                </h:selectOneMenu>
+                            </div>
+                        </div><div class="row">
+                            <div class="col-lg-2 col-md-2 col-xs-2">  
+                                <h:outputLabel for="Valor" value="Valor"/>
+                            </div>
+                            <div class="col-lg-10 col-md-10 col-xs-10 input-group">
+                                <span class="input-group-addon">$</span>
+                                <p:inputText id="valor" required="true" value="#{operacaoBean.operacao.valor}" class="form-control formularios"></p:inputText>
+                            </div>
+                        </div>
+                        
+                    </p:fieldset>
+                </h:form>
+                <h:form id="formOperacaoDestinatario" enctype="multipart/form-data">
+                            <div class="col-lg-2 col-md-2 col-xs-2">
+                                <h:outputLabel for="clienteDestinatario" value="Cliente Destinatario:" />
+                            </div>
+                            <div class="col-lg-10 col-md-10 col-xs-10 form-group">
+                                <h:selectOneMenu id="exampleSelect2" 
+                                                 class="form-control"
+                                                 value="#{operacaoBean.operacao.clienteDestinatario}"
+                                                 converter="omnifaces.SelectItemsConverter" 
+                                                 disabled="#{operacaoBean.viewState eq 'SAQUE'}">
+                                    <p:ajax event="change" 
+                                            process="@this"
+                                            update="formOperacaoDestinatario"
+                                            listener="#{operacaoBean.listaOpContaClienteDestinatario()}" />
+                                    <f:selectItem itemValue="#{null}"
+                                                  itemLabel="Selecione" 
+                                                  noSelectionOption="true" />
+                                    <f:selectItems var="clienteDestinatario"
+                                                   itemValue="#{clienteDestinatario}"
+                                                   itemLabel="#{clienteDestinatario.nome}"
+                                                   value="#{operacaoBean.clientes}"/>
+                                </h:selectOneMenu>
+                            </div><div class="col-lg-2 col-md-2 col-xs-2">
+                                <p:outputLabel for="contaDestinatario" value="Conta Destinatario: " />
+                            </div>
+                            <div class="col-lg-10 col-md-10 col-xs-10 form-group">
+                                <h:selectOneMenu id="contaDestinatario"
+                                                 disabled="#{operacaoBean.viewState eq 'SAQUE'}"
+                                                 value="#{operacaoBean.operacao.contaBancariaDestinatario}"
+                                                 converter="omnifaces.SelectItemsConverter"
+                                                 class="form-control">
+                                    <f:selectItem itemLabel="Selecione"
+                                                  itemValue="#{null}" 
+                                                  noSelectionOption="true" />
+                                    <f:selectItems var="contasDestinatario"
+                                                   itemValue="#{contasDestinatario}"
+                                                   itemLabel="#{contasDestinatario.numeroConta}"
+                                                   value="#{operacaoBean.contasDestinatario}"/>
+                                </h:selectOneMenu>
+                            </div>
+                
+            </h:form>   
+            
+                        <div class="row" style="text-align: right; padding:15px;">
+                            <p:commandButton value="Realizar Saque"
+                                             class="btn btn-primary"
+                                             actionListener="#{operacaoBean.salvar()}"
+                                             rendered="#{operacaoBean.viewState eq 'SAQUE'}"/>
+                            <p:commandButton value="Realizar Transferencia"
+                                             class="btn btn-primary"
+                                             actionListener="#{operacaoBean.salvar()}"
+                                             rendered="#{operacaoBean.viewState eq 'TRANSFERENCIA'}"/>
+                            <p:commandButton value="Realizar Deposito"
+                                             class="btn btn-primary"
+                                             actionListener="#{operacaoBean.salvar()}"
+                                             rendered="#{operacaoBean.viewState eq 'DEPOSITO'}"/>
+                            
+
+                            <p:button value="Voltar"
+                                      outcome="/index.xhtml" />
+
+                        </div>  
+            </div>
+        </ui:define>
+    </ui:composition>   
+</html>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+            
+        <ui:insert name="codecss" />
+        <title>Sistema Financeiro</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <f:facet name="last">
+            <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+            <h:outputStylesheet library="css" name="css.css"/>
+            <h:outputScript library="js" name="bootstrap.min.js"/>
+            <h:outputLink value="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"/>
+        </f:facet> 
+        
+        <ui:insert name="cabecalho">
+            <nav class="navbar navbar-default">
+               <div class="container-fluid">
+                 <div class="navbar-header">
+                   <a class="navbar-brand" href="#">
+                       FinançasWeb
+                   </a>
+                 </div>
+               </div>
+                
+             </nav>
+        </ui:insert>
+        
+        <ui:insert name="menuLateral">
+            <nav class="col-sm-3 col-md-2 col-lg-2 sidebar">
+                <p:menu toggleable="true">
+                    <p:submenu label="Cliente" class="menuTit">
+                        <p:menuitem class="subMenuTit" includeViewParams="true" value="Listar Clientes" outcome="/clientes/listaClientes.xhtml"  icon="ui-icon-triangle-1-e" >
+                            <f:param name="faces-redirect" value="true"/>
+                        </p:menuitem>
+                        <p:menuitem class="subMenuTit" includeViewParams="true" value="Cadastrar Cliente" outcome="/clientes/formCliente.xhtml"  icon="ui-icon-triangle-1-e">
+                            <f:param name="viewState" value="ADICIONAR"/>
+                            <f:param name="faces-redirect" value="true"/>
+                        </p:menuitem>
+                    </p:submenu>
+                    
+                    <p:submenu label="Contas" class="menuTit">
+                        <p:menuitem class="subMenuTit" includeViewParams="true" value="Listar Contas" outcome="/contas/listaContas.xhtml"  icon="ui-icon-triangle-1-e" >
+                            <f:param name="faces-redirect" value="true"/>
+                        </p:menuitem>
+                        <p:menuitem class="subMenuTit" includeViewParams="true" value="Cadastrar Conta" outcome="/contas/formConta.xhtml"  icon="ui-icon-triangle-1-e">
+                            <f:param name="viewState" value="ADICIONAR"/>
+                            <f:param name="faces-redirect" value="true"/>
+                        </p:menuitem>
+                    </p:submenu>
+                    
+                    <p:submenu label="Operacoes" class="menuTit">
+                        <p:menuitem class="subMenuTit" includeViewParams="true" value="Listar Operacoes" outcome="/operacoes/listaOperacoes.xhtml"  icon="ui-icon-triangle-1-e" >
+                            <f:param name="faces-redirect" value="true"/>
+                        </p:menuitem>
+                    </p:submenu>
+                                    
+                </p:menu>
+            </nav>
+        </ui:insert>
+        
+        <ui:insert name="conteudo" class="col-lg-10 col-md-10 col-xs-10">
+                <h2>Bem vindo ao seu sistema de Finanças</h2>
+                <h3> Realize suas operaçoes com facilidade</h3>
+            
+        </ui:insert>    
+    </h:body>
+</html>

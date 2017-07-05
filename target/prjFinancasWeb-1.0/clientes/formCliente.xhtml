@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:composition template="../index.xhtml">
+
+        <f:metadata>
+            <f:viewAction action="#{clienteBean.iniciarFormulario(param.id, param.viewState)}"/>
+        </f:metadata>        
+
+        <ui:define name="conteudo">
+            <div class="col-lg-10 col-md-10 col-xs-10">
+                <h:form id="formCliente">
+                    <h:messages id="mensagens" />
+                    <p:fieldset legend="Cliente" style="margin-bottom:20px;">
+                        <div class="ui-g-2 ui-md-2 ui-lg-2">                        
+                            <h:outputLabel for="nome" value="Nome:" />
+                        </div>
+                        <div class="ui-g-10 ui-md-10 ui-lg-10">  
+                            <p:inputText  class="form-control formularios" id="nome" required="true" value="#{clienteBean.cliente.nome}"></p:inputText>
+                        </div>
+                        <div class="ui-g-2 ui-md-2 ui-lg-2">  
+                            <h:outputLabel for="dataNascimento" value="Data de Nascimento:"/>
+                        </div>
+                        <div class="ui-g-10 ui-md-10 ui-lg-10">  
+                            <p:inputMask class="form-control formularios" id="dataNascimento" value="#{clienteBean.cliente.dataNascimento}" mask="99/99/9999" converter="localDateConverter"></p:inputMask>
+                        </div>
+                        <div class="ui-g-2 ui-md-2 ui-lg-2">  
+                            <h:outputLabel for="cpf" value="CPF"/>
+                        </div>
+                        <div class="ui-g-10 ui-md-10 ui-lg-10">  
+                            <p:inputMask class="form-control formularios" mask="999.999.999-99" id="cpf" required="true" value="#{clienteBean.cliente.cpf}" disabled="#{clienteBean.viewState eq 'EDITAR'}"></p:inputMask>
+                        </div>
+                        <div class="ui-g-2 ui-md-2 ui-lg-2">  
+                            <h:outputLabel for="renda" value="Renda:"/>
+                        </div>
+                        <div class="ui-g-10 ui-md-10 ui-lg-10">  
+                            <p:inputText class="form-control formularios" id="renda" required="true" value="#{clienteBean.cliente.renda}">
+                                <f:facet name="prepend">
+                                    <h:outputText value="$"/>
+                                </f:facet>
+                            </p:inputText>
+                        </div>
+                        <div class="row" style="text-align: right; padding:15px;">
+                            <p:commandButton value="Salvar"
+                                             class="btn btn-primary"
+                                             actionListener="#{clienteBean.salvar()}" 
+                                             rendered="#{clienteBean.viewState eq 'ADICIONAR'}">
+                             <f:ajax execute="formCliente" render="formCliente mensagens" />
+                            </p:commandButton>
+
+                            <p:commandButton value="Editar"
+                                             class="btn btn-primary"
+                                             actionListener="#{clienteBean.alterar()}" 
+                                             action="listaClientes?faces-redirect=true"
+                                             rendered="#{clienteBean.viewState eq 'EDITAR'}">
+                                 <f:ajax execute="formCliente" render="formCliente mensagens" />
+                            </p:commandButton>
+
+                            <p:button value="Voltar"
+                                      class="btn btn-primary"
+                                      outcome="listaClientes.xhtml" />
+
+                        </div>      
+
+
+                    </p:fieldset>
+
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>   
+</html>
