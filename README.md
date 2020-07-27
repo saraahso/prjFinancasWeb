@@ -1,4 +1,4 @@
-# Financas Web Frontend Project 
+# Financas Web  Project 
 Java Web part of a project made as intern.
 
 ## Configuration
